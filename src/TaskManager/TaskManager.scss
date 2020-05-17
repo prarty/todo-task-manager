@@ -1,0 +1,31 @@
+.task-form{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: row;
+
+  .task-text{
+    width: 1000px;
+    margin-top: 16px;
+  }
+
+  .date-picker{
+    width: 250px;
+    margin-left: 30px;
+
+    .MuiFormControl-marginNormal{
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  .drop-down{
+    margin-top: 10px;
+    width: 200px
+  }
+
+  .save-button{
+    margin-top: 12px;
+    margin-left: 20px;
+  }
+}
