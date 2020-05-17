@@ -1,7 +1,5 @@
-import React from "react";
+import React from 'react';
 
-const TaskList = () => {
-    return <h2>Task DashBoard</h2>
-}
+const TaskList = () => <h2>Task DashBoard</h2>;
 
 export default TaskList;
