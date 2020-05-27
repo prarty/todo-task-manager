@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import AddTaskForm from './AddTaskForm';
-import TaskList from './TaskList';
+import TaskList from './TaskListAgGrid/TaskList';
 
 const TaskManager = () => {
   const [isAddFormVisible, setAddFormVisibility] = useState(false);

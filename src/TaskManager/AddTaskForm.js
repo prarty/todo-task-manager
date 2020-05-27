@@ -3,12 +3,14 @@ import TextField from '@material-ui/core/TextField';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import * as moment from 'moment';
-import Select from 'react-select';
 import './TaskManager.scss';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
+import CloseIcon from '@material-ui/icons/Close';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import CreatableSelect from 'react-select/creatable';
+import IconButton from '@material-ui/core/IconButton';
 
 const AddTaskForm = () => {
   const validationSchema = Yup.object({
@@ -36,6 +38,7 @@ const AddTaskForm = () => {
           name="taskValue"
           className="task-text"
           required
+          placeholder="Task Description"
           onChange={(text) => {
             formik.setFieldValue('taskValue', text);
           }}
@@ -50,7 +53,7 @@ const AddTaskForm = () => {
               margin="normal"
               id="dueDate"
               name="dueDate"
-              label="Date picker"
+              label="Due Date"
               value={formik.values.dueDate}
               onChange={(date) => formik.setFieldValue('dueDate', date)}
               KeyboardButtonProps={{
@@ -60,12 +63,14 @@ const AddTaskForm = () => {
             />
           </MuiPickersUtilsProvider>
         </div>
-        <Select
-          value={formik.values.label}
-          onChange={() => {
-          }}
+        <CreatableSelect
+          isClearable
+          onChange={() => {}}
+          onInputChange={() => {}}
           options={[{ label: 'temp', value: '123' }, { label: 'temp1', value: '423' }]}
           className="drop-down"
+          hideSelectedOptions
+          placeholder="Select Label"
         />
         <Button
           variant="contained"
@@ -79,6 +84,11 @@ const AddTaskForm = () => {
         >
           Save
         </Button>
+        <IconButton
+          onClick={() => {}}
+        >
+          <CloseIcon />
+        </IconButton>
       </div>
     </form>
   );

@@ -1,0 +1,8 @@
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-balham/sass/ag-theme-balham";
+
+.ag-theme-balham{
+  overflow-y: auto;
+  height: 200px;
+  width: 400px;
+}
