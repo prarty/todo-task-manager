@@ -1,68 +1,107 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Library used
 
-In the project directory, you can run:
+## Eslint
+- [Documentation](https://eslint.org/docs/user-guide/getting-started)
 
-### `yarn start`
+## Formik
+### What is Formik?
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Formik is a small group of React components and hooks for building forms in React and React Native. It helps with the three most annoying parts:
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+1. Getting values in and out of form state
+2. Validation and error messages
+3. Handling form submission
 
-### `yarn test`
+### Why Formik ?
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [npm-trends](https://www.npmtrends.com/formik-vs-react-form-vs-react-final-form-vs-@rocketseat/unform-vs-react-hook-form-vs-formsy-vs-react-redux-form)
+- Reduces lot of boilerplate code.
+- Keeps track of your form's state
 
-### `yarn build`
+### Hands-on
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[https://codesandbox.io/s/formik-form-4p3gw](https://codesandbox.io/s/formik-form-4p3gw)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+[https://codesandbox.io/s/formik-form-touched-6e39c](https://codesandbox.io/s/formik-form-touched-6e39c)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### **In-browser Playgrounds**
 
-### `yarn eject`
+You can play with Formik in your web browser with these live online playgrounds.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- [CodeSandbox (ReactDOM)](https://codesandbox.io/s/zKrK5YLDZ)
+- [Snack (React Native)](https://snack.expo.io/?dependencies=yup%2Cformik%2Creact-native-paper%2Cexpo-constants&sourceUrl=https%3A%2F%2Fgist.githubusercontent.com%2Fbrentvatne%2F700e1dbf9c3e88a11aef8e557627ce3f%2Fraw%2Feeee57721c9890c1212ac34a4c37707f6354f469%2FApp.js)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Axios
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Promise based HTTP client for the browser and node.js
+- Used for making call get api call post api call
+- [Github Link](https://github.com/axios/axios)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Redux
 
-## Learn More
+- Redux is a state container library written using typescript
+- Redux library can be used by any js app, It is not specific to react.
+- The whole state of your app is stored in an object tree inside a single store
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```Javascript
+ import { applyMiddleware, combineReducers, createStore } from 'redux';
+ createStore(combineReducers({ taskManagerReducer }), applyMiddleware(sagaMiddleware));
+```
+- Store creating is done using redux library
+- [Github Link](https://github.com/reduxjs/redux)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## React-Redux
 
-### Code Splitting
+- React Redux is the official React binding for Redux. It lets your React components read data from a Redux store, and dispatch actions to the store to update data.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+- React Redux provides < Provider />, which makes the Redux store available to the rest of your app:
+  
+```Javascript
+import { Provider } from 'react-redux';
 
-### Analyzing the Bundle Size
+    <Provider store={store}>
+      <App />
+    </Provider>
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+- React Redux provides a connect function for you to connect your component to the store.
 
-### Making a Progressive Web App
+```Javascript
+import { connect } from 'react-redux'
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Counter)
+```
 
-### Advanced Configuration
+## Redux-saga
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+- redux-saga is a library that aims to make application side effects (i.e. asynchronous things like data fetching and impure things like accessing the browser cache) easier to manage, more efficient to execute, easy to test, and better at handling failures.
+- Consider it as a separate thread performing async operation
+- Act as a middleware to perform side-effects
 
-### Deployment
+```Javascript
+import createSagaMiddleware from 'redux-saga';
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+const sagaMiddleware = createSagaMiddleware();
+// We apply above saga middleware to the store
 
-### `yarn build` fails to minify
+const store = createStore(combineReducers({ taskManagerReducer }), applyMiddleware(sagaMiddleware));
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+sagaMiddleware.run(rootSaga);
+
+export default function* rootSaga() {
+  yield all(
+    [
+      fetchAllTodosSaga(),
+      addTaskSaga(),
+    ],
+  );
+}
+```
+
+- [Reference Doc](https://redux-saga.js.org/)
+
