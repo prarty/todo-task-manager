@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import './TaskList.scss';
+import * as PropTypes from 'prop-types';
 import HeaderConfig from './HeaderConfig';
 
 const rowData = [{
@@ -11,24 +12,33 @@ const rowData = [{
   make: 'Porsche', model: 'Boxter', price: 72000,
 }];
 
-const TaskList = () => (
-  <div>
-    <h2>Task DashBoard</h2>
-    <div
-      className="ag-theme-balham"
-    >
-      <AgGridReact
-        columnDefs={HeaderConfig()}
-        rowData={rowData}
-        defaultColDef={{
-          flex: 1,
-          sortable: true,
-          filter: true,
-          floatingFilter: true,
-        }}
-      />
+const TaskList = ({ data, fetchAllTodos }) => {
+  useEffect(() => {
+    fetchAllTodos();
+  }, [fetchAllTodos]);
+  return (
+    <div>
+      <h2>Task DashBoard</h2>
+      <div
+        className="ag-theme-balham"
+      >
+        <AgGridReact
+          columnDefs={HeaderConfig()}
+          rowData={data ?? rowData}
+          defaultColDef={{
+            flex: 1,
+            sortable: true,
+            filter: true,
+            floatingFilter: true,
+          }}
+        />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
+TaskList.propTypes = {
+  fetchAllTodos: PropTypes.func.isRequired,
+  data: PropTypes.instanceOf(Object).isRequired,
+};
 export default TaskList;

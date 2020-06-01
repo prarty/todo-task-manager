@@ -1,4 +1,5 @@
 import React from 'react';
+import * as PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
@@ -12,20 +13,27 @@ import * as Yup from 'yup';
 import CreatableSelect from 'react-select/creatable';
 import IconButton from '@material-ui/core/IconButton';
 
-const AddTaskForm = () => {
+const AddTaskForm = ({ addNewTask }) => {
   const validationSchema = Yup.object({
-    taskValue: Yup.string().required('task details are required'),
+    description: Yup.string().required('task details are required'),
     dueDate: Yup.date().required('DueDate is Required'),
   });
 
   const formik = useFormik({
     initialValues: {
-      taskValue: '',
+      description: '',
       dueDate: moment().format('YYYY-MM-DD'),
       label: { label: '', value: '' },
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      addNewTask(
+        {
+          description: values.description,
+          dueDate: values.dueDate,
+          label: values.label.label,
+          status: 'PENDING',
+        },
+      );
     },
     initialErrors: {},
     validationSchema,
@@ -35,12 +43,12 @@ const AddTaskForm = () => {
     <form onSubmit={formik.handleSubmit}>
       <div className="task-form">
         <TextField
-          name="taskValue"
+          name="description"
           className="task-text"
           required
           placeholder="Task Description"
-          onChange={(text) => {
-            formik.setFieldValue('taskValue', text);
+          onChange={(e) => {
+            formik.setFieldValue('description', e.target.value);
           }}
         />
         <div className="date-picker">
@@ -65,7 +73,10 @@ const AddTaskForm = () => {
         </div>
         <CreatableSelect
           isClearable
-          onChange={() => {}}
+          onChange={(e) => {
+            console.log('e value', e);
+            formik.setFieldValue('label', e);
+          }}
           onInputChange={() => {}}
           options={[{ label: 'temp', value: '123' }, { label: 'temp1', value: '423' }]}
           className="drop-down"
@@ -94,4 +105,8 @@ const AddTaskForm = () => {
   );
 };
 
+
+AddTaskForm.propTypes = {
+  addNewTask: PropTypes.func.isRequired,
+};
 export default AddTaskForm;
